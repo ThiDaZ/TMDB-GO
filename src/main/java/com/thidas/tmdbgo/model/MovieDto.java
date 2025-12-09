@@ -4,8 +4,8 @@ public class MovieDto {
     String original_title;
     String overview;
     String release_date;
-    String vote_average;
-    double vote_count;
+    double vote_average;
+    int vote_count;
     String original_language;
 
     public String getOriginal_title() {
@@ -32,19 +32,19 @@ public class MovieDto {
         this.release_date = release_date;
     }
 
-    public String getVote_average() {
+    public double getVote_average() {
         return vote_average;
     }
 
-    public void setVote_average(String vote_average) {
+    public void setVote_average(double vote_average) {
         this.vote_average = vote_average;
     }
 
-    public double getVote_count() {
+    public int getVote_count() {
         return vote_count;
     }
 
-    public void setVote_count(double vote_count) {
+    public void setVote_count(int vote_count) {
         this.vote_count = vote_count;
     }
 
