@@ -8,6 +8,17 @@ public class MovieDto {
     int vote_count;
     String original_language;
 
+    public MovieDto(
+            String original_title, String overview, String release_date, double vote_average, int vote_count, String original_language
+    ) {
+        this.original_title = original_title;
+        this.overview = overview;
+        this.release_date = release_date;
+        this.vote_average = vote_average;
+        this.vote_count = vote_count;
+        this.original_language = original_language;
+    }
+
     public String getOriginal_title() {
         return original_title;
     }
