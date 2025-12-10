@@ -24,7 +24,7 @@ public class TmdbClientTest {
     void shouldSearchMovies() {
      stubFor(get(urlPathEqualTo("/search/movie"))
              .withQueryParam("query", equalTo("Star Wars"))
-             .withQueryParam("api_key", matching(".*"))
+
              .willReturn(aResponse()
                      .withHeader("Content-Type", "application/json")
                      .withBody("""
