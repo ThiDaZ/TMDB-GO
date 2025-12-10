@@ -22,7 +22,7 @@ class MovieServiceTest {
     private TmdbClient tmdbClient;
 
     @InjectMocks
-    private MovieService MovieService;
+    private MovieService movieService;
 
     @Test
     void shouldReturnMovieTitle(){
@@ -34,17 +34,14 @@ class MovieServiceTest {
                 8.6,
                 23456,
                 "en");
-        ArrayList<MovieDto> movies = new ArrayList<>();
-        movies.add(starWars);
-        TmdbResponse mockResponse = new TmdbResponse(movies);
-        mockResponse.getResults().add(starWars);
+
+        TmdbResponse mockResponse = new TmdbResponse(List.of(starWars));
 
         when(tmdbClient.searchMovies("Star Wars")).thenReturn(mockResponse);
-        ArrayList<MovieDto> result = MovieService.search("Star Wars");
+        List<MovieDto> result = movieService.search("Star Wars");
 
         assertThat(result).hasSize(1);
         assertThat(result.getFirst().getOriginal_title()).isEqualTo("Star Wars");
-
 
     }
 

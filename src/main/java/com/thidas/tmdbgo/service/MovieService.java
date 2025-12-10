@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 
 @Service
@@ -20,13 +20,13 @@ public class MovieService {
         this.tmdbClient = tmdbClient;
     }
 
-    public ArrayList<MovieDto> search(String query) {
+    public List<MovieDto> search(String query) {
         LOGGER.info("Searching for movie: {}", query);
 
         TmdbResponse response = tmdbClient.searchMovies(query);
 
         if(response.getResults() == null){
-            return new ArrayList<>();
+            return Collections.emptyList();
         }
         return response.getResults();
     }

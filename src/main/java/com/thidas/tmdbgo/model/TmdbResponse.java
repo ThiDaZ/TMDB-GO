@@ -1,22 +1,22 @@
 package com.thidas.tmdbgo.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class TmdbResponse {
-    ArrayList<MovieDto> results;
+    List<MovieDto> results;
 
     public TmdbResponse() {
     }
 
-    public TmdbResponse(ArrayList<MovieDto> results) {
+    public TmdbResponse(List<MovieDto> results) {
         this.results = results;
     }
 
-    public ArrayList<MovieDto> getResults() {
+    public List<MovieDto> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<MovieDto> results) {
+    public void setResults(List<MovieDto> results) {
         this.results = results;
     }
 }
