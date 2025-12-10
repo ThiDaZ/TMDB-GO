@@ -8,13 +8,11 @@ import org.springframework.web.client.RestClient;
 public class TmdbClient {
 
     private final RestClient restClient;
-    private final TmdbProperties tmdbProperties;
 
     public TmdbClient(RestClient.Builder builder, TmdbProperties tmdbProperties) {
-        this.tmdbProperties = tmdbProperties;
-
         this.restClient = builder
                 .baseUrl(tmdbProperties.getBaseUrl())
+                .defaultHeader("Authorization", "Bearer " + tmdbProperties.getApiKey())
                 .build();
     }
 
@@ -23,7 +21,6 @@ public class TmdbClient {
                 .uri(uriBuilder -> uriBuilder
                         .path("/search/movie")
                         .queryParam("query", query)
-                        .queryParam("api_key", tmdbProperties.getApiKey())
                         .build())
                 .retrieve()
                 .body(TmdbResponse.class);
