@@ -10,6 +10,7 @@
 ---
 
 ## 📖 Overview
+`![Demo Screenshot](assets/demo.png)`
 
 **TMDB-Bo** is an interactive terminal application that allows users to query The Movie Database (TMDB) instantly. This project mimics enterprise-grade software architecture by implementing **Clean Architecture**, **Caching**, **Resilience patterns**, and **Type-safe configuration**.
 
