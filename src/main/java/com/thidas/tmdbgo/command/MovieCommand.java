@@ -21,11 +21,16 @@ public class MovieCommand {
     }
 
     @ShellMethod(key = "search", value = "Search for a movie")
-    public String search(@ShellOption(defaultValue = "Star Wars")String title){
+    public String search(String title){
+
+        if (title.isBlank()){
+            return "Enter Movie title to search!";
+        }
+
         List<MovieDto> movies = movieService.search(title);
 
         if(movies.isEmpty()){
-            return "No results found for "+ title;
+            return "\uD83D\uDEAB No results found for "+ title;
         }
 
         StringBuilder sb = new StringBuilder();
