@@ -5,6 +5,7 @@ import com.thidas.tmdbgo.model.MovieDto;
 import com.thidas.tmdbgo.model.TmdbResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class MovieService {
         this.tmdbClient = tmdbClient;
     }
 
+    @Cacheable("movies")
     public List<MovieDto> search(String query) {
         LOGGER.info("Searching for movie: {}", query);
 

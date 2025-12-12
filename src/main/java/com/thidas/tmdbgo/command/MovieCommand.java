@@ -4,6 +4,8 @@ import com.thidas.tmdbgo.model.MovieDto;
 import com.thidas.tmdbgo.service.MovieService;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.springframework.cache.Cache;
+import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
@@ -14,9 +16,11 @@ public class MovieCommand {
 
     private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
     private final MovieService movieService;
+    private final ConcurrentMapCacheManager cacheManager;
 
-    public MovieCommand(MovieService movieService) {
+    public MovieCommand(MovieService movieService, ConcurrentMapCacheManager cacheManager) {
         this.movieService = movieService;
+        this.cacheManager = cacheManager;
     }
 
     @ShellMethod(key = "search", value = "Search for a movie")
@@ -55,6 +59,16 @@ public class MovieCommand {
             return input.substring(0, width - 3) + "...";
         }
         return input;
+    }
+
+    @ShellMethod(key = "clear-cache", value = "Clear the movie search cache")
+    public String clearCache(){
+        Cache movieCache = cacheManager.getCache("movies");
+        if(movieCache != null){
+            movieCache.clear();
+            return "Cache cleared!";
+        }
+        return "Cache not found.";
     }
 
 }
