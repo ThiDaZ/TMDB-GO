@@ -45,10 +45,40 @@ public class TmdbClientTest {
      TmdbResponse response = tmdbClient.searchMovies("Star Wars");
 
      assertThat(response.getResults()).hasSize(1);
+     MovieDto movie = response.getResults().getFirst();
+     assertThat(movie.getTitle()).isEqualTo("Star Wars: The Force Awakens");
+     assertThat(movie.getOverview()).isNotBlank();
+     assertThat(movie.getRelease_date()).isEqualTo("2015-12-18");
+     assertThat(movie.getVote_average()).isEqualTo(8.6);
+    }
+
+    @Test
+    void shouldNowPlayingMovies(){
+        stubFor(get(urlPathEqualTo("/movie/now_playing"))
+                .willReturn(aResponse()
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("""
+                                {
+                                "results":[
+                                 {
+                                      "original_language": "en",
+                                      "overview": "After cracking the biggest case in Zootopia's history, rookie cops Judy Hopps and Nick Wilde find themselves on the twisting trail of a great mystery when Gary De’Snake arrives and turns the animal metropolis upside down. To crack the case, Judy and Nick must go undercover to unexpected new parts of town, where their growing partnership is tested like never before.",
+                                      "release_date": "2025-11-26",
+                                      "title": "Zootopia 2",
+                                      "vote_average": 7.683,
+                                      "vote_count": 562
+                                 }
+                                ]}
+                                """))
+        );
+
+        TmdbResponse response = tmdbClient.nowPlayingMovies();
+
+        assertThat(response.getResults()).hasSize(1);
         MovieDto movie = response.getResults().getFirst();
-        assertThat(movie.getTitle()).isEqualTo("Star Wars: The Force Awakens");
+        assertThat(movie.getTitle()).isEqualTo("Zootopia 2");
         assertThat(movie.getOverview()).isNotBlank();
-        assertThat(movie.getRelease_date()).isEqualTo("2015-12-18");
-        assertThat(movie.getVote_average()).isEqualTo(8.6);
+        assertThat(movie.getRelease_date()).isEqualTo("2025-11-26");
+        assertThat(movie.getVote_average()).isEqualTo(7.683);
     }
 }

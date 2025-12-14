@@ -4,6 +4,9 @@ import com.thidas.tmdbgo.model.TmdbResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+import java.util.Collection;
+import java.util.Collections;
+
 @Service
 public class TmdbClient {
 
@@ -21,6 +24,15 @@ public class TmdbClient {
                 .uri(uriBuilder -> uriBuilder
                         .path("/search/movie")
                         .queryParam("query", query)
+                        .build())
+                .retrieve()
+                .body(TmdbResponse.class);
+    }
+
+    public TmdbResponse nowPlayingMovies(){
+        return restClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/movie/now_playing")
                         .build())
                 .retrieve()
                 .body(TmdbResponse.class);
