@@ -35,4 +35,13 @@ public class TmdbClient {
                 .body(TmdbResponse.class);
     }
 
+    public TmdbResponse upcomingMovies(){
+        return restClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/movie/upcoming")
+                        .build())
+                .retrieve()
+                .body(TmdbResponse.class);
+    }
+
 }
