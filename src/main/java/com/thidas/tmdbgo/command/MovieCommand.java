@@ -5,6 +5,7 @@ import com.thidas.tmdbgo.service.MovieService;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.cache.Cache;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -49,6 +50,29 @@ public class MovieCommand {
                     year,
                     movie.getVote_average()
 
+            ));
+        }
+        return sb.toString();
+    }
+
+    @ShellMethod(key = "now-playing", value = "Showing now playing movies in theaters")
+    public String nowPlaying(){
+
+        List<MovieDto> movies = movieService.nowPlaying();
+
+        if(movies.isEmpty()){
+            return "\uD83D\uDEAB No results found";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Now showing ").append(movies.size()).append(" movies in theaters: \n ");
+        sb.append("------------------------------------------------ \n ");
+
+        for(MovieDto movie : movies){
+            sb.append(String.format(" \uD83C\uDFA5 %-30s | \uD83D\uDCC5 %s | ⭐ %.1f \n ",
+                    truncate(movie.getTitle(), 30),
+                    movie.getRelease_date(),
+                    movie.getVote_average()
             ));
         }
         return sb.toString();
