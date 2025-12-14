@@ -33,4 +33,13 @@ public class MovieService {
         return response.getResults();
     }
 
+    public List<MovieDto> nowPlaying(){
+        LOGGER.info("Getting now play movies");
+
+        TmdbResponse response = tmdbClient.nowPlayingMovies();
+        if(response.getResults() == null){
+            return Collections.emptyList();
+        }
+        return response.getResults();
+    }
 }
