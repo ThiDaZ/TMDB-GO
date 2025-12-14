@@ -5,7 +5,6 @@ import com.thidas.tmdbgo.service.MovieService;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.cache.Cache;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
@@ -15,7 +14,7 @@ import java.util.List;
 @ShellComponent
 public class MovieCommand {
 
-    private static final Logger logger = LoggerFactory.getLogger(MovieService.class);
+    private static final Logger logger = LoggerFactory.getLogger(MovieCommand.class);
     private final MovieService movieService;
     private final ConcurrentMapCacheManager cacheManager;
 

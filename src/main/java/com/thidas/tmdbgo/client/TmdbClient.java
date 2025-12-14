@@ -4,9 +4,6 @@ import com.thidas.tmdbgo.model.TmdbResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-import java.util.Collection;
-import java.util.Collections;
-
 @Service
 public class TmdbClient {
 
