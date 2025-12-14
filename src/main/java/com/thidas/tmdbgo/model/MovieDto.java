@@ -1,7 +1,7 @@
 package com.thidas.tmdbgo.model;
 
 public class MovieDto {
-    String original_title;
+    String title;
     String overview;
     String release_date;
     double vote_average;
@@ -9,9 +9,9 @@ public class MovieDto {
     String original_language;
 
     public MovieDto(
-            String original_title, String overview, String release_date, double vote_average, int vote_count, String original_language
+            String title, String overview, String release_date, double vote_average, int vote_count, String original_language
     ) {
-        this.original_title = original_title;
+        this.title = title;
         this.overview = overview;
         this.release_date = release_date;
         this.vote_average = vote_average;
@@ -19,12 +19,12 @@ public class MovieDto {
         this.original_language = original_language;
     }
 
-    public String getOriginal_title() {
-        return original_title;
+    public String getTitle() {
+        return title;
     }
 
-    public void setOriginal_title(String original_title) {
-        this.original_title = original_title;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getOverview() {

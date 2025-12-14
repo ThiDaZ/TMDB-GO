@@ -31,7 +31,7 @@ public class TmdbClientTest {
                              {
                              "results": [
                                 {
-                                    "original_title": "Star Wars: The Force Awakens",
+                                    "title": "Star Wars: The Force Awakens",
                                     "overview": "Twenty-year-old , a junior high school student, is transferred to the Force when a mysterious cyborg called the Rise Of Skywalker appears in his dreams.",
                                     "original_language": "en",
                                     "release_date": "2015-12-18",
@@ -46,10 +46,9 @@ public class TmdbClientTest {
 
      assertThat(response.getResults()).hasSize(1);
         MovieDto movie = response.getResults().getFirst();
-        assertThat(movie.getOriginal_title()).isEqualTo("Star Wars: The Force Awakens");
+        assertThat(movie.getTitle()).isEqualTo("Star Wars: The Force Awakens");
         assertThat(movie.getOverview()).isNotBlank();
         assertThat(movie.getRelease_date()).isEqualTo("2015-12-18");
         assertThat(movie.getVote_average()).isEqualTo(8.6);
     }
-
 }

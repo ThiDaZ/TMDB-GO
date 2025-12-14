@@ -41,7 +41,7 @@ class MovieServiceTest {
         List<MovieDto> result = movieService.search("Star Wars");
 
         assertThat(result).hasSize(1);
-        assertThat(result.getFirst().getOriginal_title()).isEqualTo("Star Wars");
+        assertThat(result.getFirst().getTitle()).isEqualTo("Star Wars");
 
     }
 

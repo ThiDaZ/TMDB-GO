@@ -45,7 +45,7 @@ public class MovieCommand {
                     ? movie.getRelease_date().substring(0, 4)
                     : "N/A";
             sb.append(String.format(" \uD83C\uDFA5 %-30s | \uD83D\uDCC5 %s | ⭐ %.1f \n ",
-                    truncate(movie.getOriginal_title(), 30),
+                    truncate(movie.getTitle(), 30),
                     year,
                     movie.getVote_average()
 
