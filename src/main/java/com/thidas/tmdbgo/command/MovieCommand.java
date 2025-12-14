@@ -37,22 +37,7 @@ public class MovieCommand {
             return "\uD83D\uDEAB No results found for "+ title;
         }
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("Found ").append(movies.size()).append(" movies: \n ");
-        sb.append("------------------------------------------------ \n ");
-
-        for(MovieDto movie : movies){
-            String year = movie.getRelease_date() != null && movie.getRelease_date().length() >= 4
-                    ? movie.getRelease_date().substring(0, 4)
-                    : "N/A";
-            sb.append(String.format(" \uD83C\uDFA5 %-30s | \uD83D\uDCC5 %s | ⭐ %.1f \n ",
-                    truncate(movie.getTitle(), 30),
-                    year,
-                    movie.getVote_average()
-
-            ));
-        }
-        return sb.toString();
+        return renderMovieTable(movies);
     }
 
     @ShellMethod(key = "now-playing", value = "Showing now playing movies in theaters")
@@ -63,19 +48,7 @@ public class MovieCommand {
         if(movies.isEmpty()){
             return "\uD83D\uDEAB No results found";
         }
-
-        StringBuilder sb = new StringBuilder();
-        sb.append("Now showing ").append(movies.size()).append(" movies in theaters: \n ");
-        sb.append("------------------------------------------------ \n ");
-
-        for(MovieDto movie : movies){
-            sb.append(String.format(" \uD83C\uDFA5 %-30s | \uD83D\uDCC5 %s | ⭐ %.1f \n ",
-                    truncate(movie.getTitle(), 30),
-                    movie.getRelease_date(),
-                    movie.getVote_average()
-            ));
-        }
-        return sb.toString();
+        return renderMovieTable(movies);
     }
 
     private String truncate(String input, int width) {
@@ -93,6 +66,28 @@ public class MovieCommand {
             return "Cache cleared!";
         }
         return "Cache not found.";
+    }
+
+    private String renderMovieTable(List<MovieDto> movies) {
+        StringBuilder sb = new StringBuilder();
+        String header = String.format("| %-40s | %-10s | %-8s |%n", "TITLE", "RELEASED", "RATING");
+        String separator = "+------------------------------------------+------------+----------+\n";
+
+        sb.append("\n");
+        sb.append(separator);
+        sb.append(header);
+        sb.append(separator);
+
+        for (MovieDto movie : movies) {
+            String title = truncate(movie.getTitle(), 38);
+            String date = (movie.getRelease_date() != null) ? movie.getRelease_date() : "N/A";
+            String rating = String.format("⭐ %.1f", movie.getVote_average());
+
+            sb.append(String.format("| %-40s | %-10s | %-7s |%n", title, date, rating));
+        }
+
+        sb.append(separator);
+        return sb.toString();
     }
 
 }
