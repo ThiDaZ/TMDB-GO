@@ -60,6 +60,15 @@ public class MovieCommand {
         return renderMovieTable(movies);
     }
 
+    @ShellMethod(key = "top-movies", value = "Showing top rated movies")
+    public String topMovies(){
+        List<MovieDto> movies = movieService.topMovies();
+        if(movies.isEmpty()){
+            return "\uD83D\uDEAB No results found";
+        }
+        return renderMovieTable(movies);
+    }
+
     private String truncate(String input, int width) {
         if (input.length() > width) {
             return input.substring(0, width - 3) + "...";

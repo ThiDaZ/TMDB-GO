@@ -43,4 +43,14 @@ class MovieServiceTest {
         assertThat(result).hasSize(1);
         assertThat(result.getFirst().getTitle()).isEqualTo("Star Wars");
     }
+
+    @Test
+    void shouldReturnTopMovies(){
+        TmdbResponse mockResponse = new TmdbResponse(List.of(demoMovie));
+        when(tmdbClient.topMovies()).thenReturn(mockResponse);
+        List<MovieDto> result = movieService.topMovies();
+
+        assertThat(result).hasSize(1);
+        assertThat(result.getFirst().getTitle()).isEqualTo("Star Wars");
+    }
 }
