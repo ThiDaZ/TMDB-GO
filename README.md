@@ -63,11 +63,11 @@ shell:>
 **Available Commands**
 |Command|Description|Example|
 |--|--|--|
-| ``search`` |Search for a movie by title |``search Star Wars``  |
-| ``now-playing`` |Showing now playing movies in theaters |``now-playing``  |
-| ``upcoming-movies`` |Showing new upcoming movies |``upcoming-movies``  |
-| ``top-movies`` |Showing top-rated movies |``top-movies``  |
-| ``popular-movies`` |Showing popular movies right now |``popular-movies``  |
+| ``--search`` |Search for a movie by title |``tmdb --search "Star Wars"``  |
+| ``--type PLAYING`` |Showing now playing movies in theaters |``tmdb --type PLAYING``  |
+| ``--type UPCOMING`` |Showing new upcoming movies |``tmdb --type UPCOMING``  |
+| ``--type TOP`` |Showing top-rated movies |``tmdb --type TOP``  |
+| ``--type POPULAR`` |Showing popular movies right now |``tmdb --type POPULAR``  |
 | ``clear-cache`` |Wipes the local cache to force fresh data. (Only enables on search command) |``clear-cache``  |
 | ``help`` |Lists all available commands. |``help``  |
 
