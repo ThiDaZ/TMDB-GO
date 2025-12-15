@@ -53,4 +53,15 @@ public class MovieService {
         return response.getResults();
     }
 
+    public List<MovieDto> topMovies(){
+        LOGGER.info("Getting top rated movies");
+
+        TmdbResponse response = tmdbClient.topMovies();
+        if(response.getResults() == null){
+            return Collections.emptyList();
+        }
+        return response.getResults();
+    }
+
+
 }

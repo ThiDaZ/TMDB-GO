@@ -26,7 +26,7 @@ public class TmdbClient {
                 .body(TmdbResponse.class);
     }
 
-    public TmdbResponse nowPlayingMovies(){
+    public TmdbResponse nowPlayingMovies() {
         return restClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/movie/now_playing")
@@ -35,10 +35,18 @@ public class TmdbClient {
                 .body(TmdbResponse.class);
     }
 
-    public TmdbResponse upcomingMovies(){
+    public TmdbResponse upcomingMovies() {
         return restClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .path("/movie/upcoming")
+                        .build())
+                .retrieve()
+                .body(TmdbResponse.class);
+    }
+
+    public TmdbResponse topMovies() {
+        return restClient.get().uri(uriBuilder -> uriBuilder
+                        .path("/movie/top_rated")
                         .build())
                 .retrieve()
                 .body(TmdbResponse.class);
