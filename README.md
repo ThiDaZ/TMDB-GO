@@ -48,11 +48,11 @@ This project **does not** hardcode API keys. You must set it as an Environment V
 **Option B: Terminal (Linux/Mac)**
 ```bash
 export TMDB_API_KEY=your_actual_key_here
-./mvnw spring-boot:run
+./gradlew spring-boot:run
 ```
 **Option C: Terminal (Windows PowerShell)**
 ```bash
-$env:TMDB_API_KEY="your_actual_key_here" ./mvnw spring-boot:run
+$env:TMDB_API_KEY="your_actual_key_here" ./gradlew spring-boot:run
 ```
 ---
 ###  Usage Guide
