@@ -1,6 +1,7 @@
 package com.thidas.tmdbgo.command;
 
 import com.thidas.tmdbgo.model.MovieDto;
+import com.thidas.tmdbgo.model.MovieType;
 import com.thidas.tmdbgo.service.MovieService;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.standard.ShellOption;
 
 import java.util.List;
 
@@ -23,61 +25,43 @@ public class MovieCommand {
         this.cacheManager = cacheManager;
     }
 
-    @ShellMethod(key = "search", value = "Search for a movie")
-    public String search(String title){
+    @ShellMethod(key = "tmdb-app", value="Main entry point for TMDB movie lists")
+    public String tmdbApp(
+            @ShellOption(value = "--type", defaultValue = ShellOption.NULL, help = "Type of list: PLAYING, POPULAR, TOP, UPCOMING")
+            MovieType type,
 
-        if (title.isBlank()){
-            return "Enter Movie title to search!";
+            @ShellOption(value = "--search",defaultValue = ShellOption.NULL, help = "Search for a movie title")
+            String searchQuery
+    ){
+
+        if(type == null && searchQuery ==null){
+            return "\uD83D\uDEAB Error: you must provie either --type or --search.";
         }
 
-        List<MovieDto> movies = movieService.search(title);
-
-        if(movies.isEmpty()){
-            return "\uD83D\uDEAB No results found for "+ title;
+        if(type !=null && searchQuery != null ){
+            return "\uD83D\uDEAB Error: Please use only one option at a time.";
         }
 
-        return renderMovieTable(movies);
-    }
-
-    @ShellMethod(key = "now-playing", value = "Showing now playing movies in theaters")
-    public String nowPlaying(){
-
-        List<MovieDto> movies = movieService.nowPlaying();
-
-        if(movies.isEmpty()){
-            return "\uD83D\uDEAB No results found";
+        if(searchQuery !=null){
+            List<MovieDto> movies = movieService.search(searchQuery);
+            if(movies.isEmpty()){
+                return "\uD83D\uDEAB No results found for "+ searchQuery;
+            }
+            return renderMovieTable(movies);
         }
-        return renderMovieTable(movies);
-    }
 
-    @ShellMethod(key = "upcoming-movies", value = "Showing new upcoming movies")
-    public String upcoming(){
-        List<MovieDto> movies = movieService.upcoming();
+        List<MovieDto> movies = switch (type){
+            case TOP -> movieService.topMovies();
+            case PLAYING -> movieService.nowPlaying();
+            case POPULAR -> movieService.popular();
+            case UPCOMING -> movieService.upcoming();
+        };
 
-        if(movies.isEmpty()){
-            return "\uD83D\uDEAB No results found";
-        }
-        return renderMovieTable(movies);
-    }
-
-    @ShellMethod(key = "top-movies", value = "Showing top rated movies")
-    public String topMovies(){
-        List<MovieDto> movies = movieService.topMovies();
         if(movies.isEmpty()){
             return "\uD83D\uDEAB No results found";
         }
         return renderMovieTable(movies);
     }
-
-    @ShellMethod(key = "popular-movies", value = "Showing popular movies right now")
-    public String popularMovies(){
-        List<MovieDto> movies = movieService.popular();
-        if(movies.isEmpty()){
-            return "\uD83D\uDEAB No results found";
-        }
-        return renderMovieTable(movies);
-    }
-
 
     private String truncate(String input, int width) {
         if (input.length() > width) {
@@ -116,6 +100,62 @@ public class MovieCommand {
 
         sb.append(separator);
         return sb.toString();
+    }
+
+    //--------- OLD COMMANDS ----------
+    //    @ShellMethod(key = "search", value = "Search for a movie")
+    public String search(String title){
+
+        if (title.isBlank()){
+            return "Enter Movie title to search!";
+        }
+
+        List<MovieDto> movies = movieService.search(title);
+
+        if(movies.isEmpty()){
+            return "\uD83D\uDEAB No results found for "+ title;
+        }
+
+        return renderMovieTable(movies);
+    }
+
+    //    @ShellMethod(key = "now-playing", value = "Showing now playing movies in theaters")
+    public String nowPlaying(){
+
+        List<MovieDto> movies = movieService.nowPlaying();
+
+        if(movies.isEmpty()){
+            return "\uD83D\uDEAB No results found";
+        }
+        return renderMovieTable(movies);
+    }
+
+    //    @ShellMethod(key = "upcoming-movies", value = "Showing new upcoming movies")
+    public String upcoming(){
+        List<MovieDto> movies = movieService.upcoming();
+
+        if(movies.isEmpty()){
+            return "\uD83D\uDEAB No results found";
+        }
+        return renderMovieTable(movies);
+    }
+
+    //    @ShellMethod(key = "top-movies", value = "Showing top rated movies")
+    public String topMovies(){
+        List<MovieDto> movies = movieService.topMovies();
+        if(movies.isEmpty()){
+            return "\uD83D\uDEAB No results found";
+        }
+        return renderMovieTable(movies);
+    }
+
+    //    @ShellMethod(key = "popular-movies", value = "Showing popular movies right now")
+    public String popularMovies(){
+        List<MovieDto> movies = movieService.popular();
+        if(movies.isEmpty()){
+            return "\uD83D\uDEAB No results found";
+        }
+        return renderMovieTable(movies);
     }
 
 }
