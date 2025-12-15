@@ -52,4 +52,12 @@ public class TmdbClient {
                 .body(TmdbResponse.class);
     }
 
+    public TmdbResponse popularMovies(){
+        return restClient.get().uri(uriBuilder -> uriBuilder
+                    .path("/movie/popular")
+                    .build())
+                .retrieve()
+                .body(TmdbResponse.class);
+    }
+
 }
