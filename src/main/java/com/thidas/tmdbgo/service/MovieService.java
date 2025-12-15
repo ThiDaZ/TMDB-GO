@@ -63,5 +63,13 @@ public class MovieService {
         return response.getResults();
     }
 
+    public List<MovieDto> popular(){
+        LOGGER.info("Getting popular movies list");
 
+        TmdbResponse response = tmdbClient.popularMovies();
+        if(response.getResults().isEmpty()){
+            return Collections.emptyList();
+        }
+        return response.getResults();
+    }
 }

@@ -82,7 +82,6 @@ public class TmdbClientTest {
         assertThat(movie.getVote_average()).isEqualTo(7.683);
     }
 
-
     @Test
     void shouldUpcomingMovies(){
         stubFor(get(urlPathEqualTo("/movie/upcoming"))
@@ -143,4 +142,33 @@ public class TmdbClientTest {
         assertThat(movie.getVote_average()).isEqualTo(8.713);
     }
 
+    @Test
+    void shouldPoplarMovies(){
+        stubFor(get(urlPathEqualTo("/movie/popular"))
+                .willReturn(aResponse()
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("""
+                                {
+                                "results": [
+                                    {
+                                      "original_language": "en",
+                                      "overview": "Super-Hero partners Scott Lang and Hope van Dyne, along with with Hope's parents Janet van Dyne and Hank Pym, and Scott's daughter Cassie Lang, find themselves exploring the Quantum Realm, interacting with strange new creatures and embarking on an adventure that will push them beyond the limits of what they thought possible.",
+                                      "release_date": "2023-02-15",
+                                      "title": "Ant-Man and the Wasp: Quantumania",
+                                      "vote_average": 6.5,
+                                      "vote_count": 1886
+                                    }]}
+                                """)
+                ));
+
+        TmdbResponse response = tmdbClient.popularMovies();
+
+        assertThat(response.getResults()).hasSize(1);
+        MovieDto movie = response.getResults().getFirst();
+
+        assertThat(movie.getTitle()).isEqualTo("Ant-Man and the Wasp: Quantumania");
+        assertThat(movie.getOverview()).isNotBlank();
+        assertThat(movie.getVote_average()).isEqualTo(6.5);
+        assertThat(movie.getVote_count()).isEqualTo(1886);
+    }
 }

@@ -69,6 +69,16 @@ public class MovieCommand {
         return renderMovieTable(movies);
     }
 
+    @ShellMethod(key = "popular-movies", value = "Showing popular movies right now")
+    public String popularMovies(){
+        List<MovieDto> movies = movieService.popular();
+        if(movies.isEmpty()){
+            return "\uD83D\uDEAB No results found";
+        }
+        return renderMovieTable(movies);
+    }
+
+
     private String truncate(String input, int width) {
         if (input.length() > width) {
             return input.substring(0, width - 3) + "...";
