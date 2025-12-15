@@ -1,16 +1,14 @@
-
 # 🎬 TMDB-Go: TMDB CLI Tool
 
 ![Java](https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=java)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.2+-green?style=for-the-badge&logo=springboot)
 ![Build](https://img.shields.io/badge/Build-Gradle-blue?style=for-the-badge)
 
-> A professional Command Line Interface (CLI) for searching movies, built to demonstrate modern Spring Boot architecture, reactive client patterns, and clean code principles.
+> A professional Command Line Interface (CLI) for searching movies, built to demonstrate modern Spring Boot architecture, reactive client patterns, and clean code principles
 
----
+(followed roadmap: https://roadmap.sh/projects/tmdb-cli)
 
 ## 📖 Overview
-![Demo Screenshot](assets/demo.png)
 
 **TMDB-Bo** is an interactive terminal application that allows users to query The Movie Database (TMDB) instantly. This project mimics enterprise-grade software architecture by implementing **Clean Architecture**, **Caching**, **Resilience patterns**, and **Type-safe configuration**.
 
@@ -50,11 +48,11 @@ This project **does not** hardcode API keys. You must set it as an Environment V
 **Option B: Terminal (Linux/Mac)**
 ```bash
 export TMDB_API_KEY=your_actual_key_here
-./gradlew spring-boot:run
+./mvnw spring-boot:run
 ```
 **Option C: Terminal (Windows PowerShell)**
 ```bash
-$env:TMDB_API_KEY="your_actual_key_here" ./gradlew spring-boot:run
+$env:TMDB_API_KEY="your_actual_key_here" ./mvnw spring-boot:run
 ```
 ---
 ###  Usage Guide
@@ -66,7 +64,11 @@ shell:>
 |Command|Description|Example|
 |--|--|--|
 | ``search`` |Search for a movie by title |``search Star Wars``  |
-| ``clear-cache`` |Wipes the local cache to force fresh data. |``clear-cache``  |
+| ``now-playing`` |Showing now playing movies in theaters |``now-playing``  |
+| ``upcoming-movies`` |Showing new upcoming movies |``upcoming-movies``  |
+| ``top-movies`` |Showing top-rated movies |``top-movies``  |
+| ``popular-movies`` |Showing popular movies right now |``popular-movies``  |
+| ``clear-cache`` |Wipes the local cache to force fresh data. (Only enables on search command) |``clear-cache``  |
 | ``help`` |Lists all available commands. |``help``  |
 
 **Example Output**
@@ -100,5 +102,3 @@ The project uses **WireMock** to simulate the TMDB API, ensuring tests run fast 
 ```
 ---
 **Author:** [Thidas Wickramarachchi]
-
-

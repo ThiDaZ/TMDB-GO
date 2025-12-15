@@ -78,7 +78,6 @@ public class MovieCommand {
         return renderMovieTable(movies);
     }
 
-
     private String truncate(String input, int width) {
         if (input.length() > width) {
             return input.substring(0, width - 3) + "...";
