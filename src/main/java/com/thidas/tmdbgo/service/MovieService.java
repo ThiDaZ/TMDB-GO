@@ -42,4 +42,15 @@ public class MovieService {
         }
         return response.getResults();
     }
+
+    public List<MovieDto> upcoming(){
+        LOGGER.info("Getting upcoming movies");
+
+        TmdbResponse response = tmdbClient.upcomingMovies();
+        if(response.getResults() == null){
+            return Collections.emptyList();
+        }
+        return response.getResults();
+    }
+
 }

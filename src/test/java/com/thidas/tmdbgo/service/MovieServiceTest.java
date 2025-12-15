@@ -26,7 +26,6 @@ class MovieServiceTest {
 
     @Test
     void shouldReturnMovieTitle(){
-
         MovieDto starWars = new MovieDto(
                 "Star Wars",
                 "A long time ago in a galaxy far far away...",
@@ -42,7 +41,5 @@ class MovieServiceTest {
 
         assertThat(result).hasSize(1);
         assertThat(result.getFirst().getTitle()).isEqualTo("Star Wars");
-
     }
-
 }

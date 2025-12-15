@@ -81,4 +81,37 @@ public class TmdbClientTest {
         assertThat(movie.getRelease_date()).isEqualTo("2025-11-26");
         assertThat(movie.getVote_average()).isEqualTo(7.683);
     }
+
+
+    @Test
+    void shouldUpcomingMovies(){
+        stubFor(get(urlPathEqualTo("/movie/upcoming"))
+                .willReturn(aResponse()
+                        .withHeader("Content-Type", "application/json")
+                        .withBody("""
+                                {
+                                "results": [
+                                    {
+                                      "original_language": "en",
+                                      "overview": "Two sisters find an ancient vinyl that gives birth to bloodthirsty demons that run amok in a Los Angeles apartment building and thrusts them into a primal battle for survival as they face the most nightmarish version of family imaginable.",
+                                      "release_date": "2023-04-12",
+                                      "title": "Evil Dead Rise",
+                                      "vote_average": 7,
+                                      "vote_count": 207
+                                    }]
+                                }
+                                """))
+        );
+
+        TmdbResponse response = tmdbClient.upcomingMovies();
+
+        assertThat(response.getResults()).hasSize(1);
+        MovieDto movie = response.getResults().getFirst();
+        assertThat(movie.getTitle()).isEqualTo("Evil Dead Rise");
+        assertThat(movie.getOverview()).isNotBlank();
+        assertThat(movie.getRelease_date()).isEqualTo("2023-04-12");
+        assertThat(movie.getVote_average()).isEqualTo(7);
+
+    }
+
 }
