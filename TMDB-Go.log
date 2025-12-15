@@ -29,3 +29,9 @@
 1765819160213:tmdb-app --type POPULARR
 1765819181232:tmdb-app --type POPULAR
 1765819210049:tmdb-app --type UPCOMING
+1765820048130:tmdb-app --type
+1765820071626:tmdb-app --type UPCOMING
+1765820158506:tmdb-app --search "star wars"
+1765820177059:tmdb-app --type TOP
+1765820196565:tmdb-app --type TOP --search "Star wars"
+1765820211710:tmdb-app --search
