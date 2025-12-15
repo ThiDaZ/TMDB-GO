@@ -1,6 +1,7 @@
 package com.thidas.tmdbgo.command;
 
 import com.thidas.tmdbgo.model.MovieDto;
+import com.thidas.tmdbgo.model.MovieType;
 import com.thidas.tmdbgo.service.MovieService;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.standard.ShellOption;
 
 import java.util.List;
 
@@ -21,6 +23,25 @@ public class MovieCommand {
     public MovieCommand(MovieService movieService, ConcurrentMapCacheManager cacheManager) {
         this.movieService = movieService;
         this.cacheManager = cacheManager;
+    }
+
+    @ShellMethod(key = "tmdb-app", value="Main entry point for TMDB movie lists")
+    public String tmdbApp(
+            @ShellOption(value = "--type", help = "Type of list: PLAYING, POPULAR, TOP, UPCOMING")
+            MovieType type
+    ){
+
+        List<MovieDto> movies = switch (type){
+            case TOP -> movieService.topMovies();
+            case PLAYING -> movieService.nowPlaying();
+            case POPULAR -> movieService.popular();
+            case UPCOMING -> movieService.upcoming();
+        };
+
+        if(movies.isEmpty()){
+            return "\uD83D\uDEAB No results found";
+        }
+        return renderMovieTable(movies);
     }
 
     @ShellMethod(key = "search", value = "Search for a movie")
