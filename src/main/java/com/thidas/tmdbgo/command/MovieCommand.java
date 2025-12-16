@@ -3,8 +3,6 @@ package com.thidas.tmdbgo.command;
 import com.thidas.tmdbgo.model.MovieDto;
 import com.thidas.tmdbgo.model.MovieType;
 import com.thidas.tmdbgo.service.MovieService;
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
 import org.springframework.cache.Cache;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.shell.standard.ShellComponent;
@@ -16,7 +14,6 @@ import java.util.List;
 @ShellComponent
 public class MovieCommand {
 
-    private static final Logger logger = LoggerFactory.getLogger(MovieCommand.class);
     private final MovieService movieService;
     private final ConcurrentMapCacheManager cacheManager;
 
@@ -100,62 +97,6 @@ public class MovieCommand {
 
         sb.append(separator);
         return sb.toString();
-    }
-
-    //--------- OLD COMMANDS ----------
-    //    @ShellMethod(key = "search", value = "Search for a movie")
-    public String search(String title){
-
-        if (title.isBlank()){
-            return "Enter Movie title to search!";
-        }
-
-        List<MovieDto> movies = movieService.search(title);
-
-        if(movies.isEmpty()){
-            return "\uD83D\uDEAB No results found for "+ title;
-        }
-
-        return renderMovieTable(movies);
-    }
-
-    //    @ShellMethod(key = "now-playing", value = "Showing now playing movies in theaters")
-    public String nowPlaying(){
-
-        List<MovieDto> movies = movieService.nowPlaying();
-
-        if(movies.isEmpty()){
-            return "\uD83D\uDEAB No results found";
-        }
-        return renderMovieTable(movies);
-    }
-
-    //    @ShellMethod(key = "upcoming-movies", value = "Showing new upcoming movies")
-    public String upcoming(){
-        List<MovieDto> movies = movieService.upcoming();
-
-        if(movies.isEmpty()){
-            return "\uD83D\uDEAB No results found";
-        }
-        return renderMovieTable(movies);
-    }
-
-    //    @ShellMethod(key = "top-movies", value = "Showing top rated movies")
-    public String topMovies(){
-        List<MovieDto> movies = movieService.topMovies();
-        if(movies.isEmpty()){
-            return "\uD83D\uDEAB No results found";
-        }
-        return renderMovieTable(movies);
-    }
-
-    //    @ShellMethod(key = "popular-movies", value = "Showing popular movies right now")
-    public String popularMovies(){
-        List<MovieDto> movies = movieService.popular();
-        if(movies.isEmpty()){
-            return "\uD83D\uDEAB No results found";
-        }
-        return renderMovieTable(movies);
     }
 
 }
