@@ -23,7 +23,7 @@ public class MovieService {
 
     @Cacheable("movies")
     public List<MovieDto> search(String query) {
-        LOGGER.info("Searching for movie: {}", query);
+//        LOGGER.info("Searching for movie: {}", query);
 
         TmdbResponse response = tmdbClient.searchMovies(query);
 
@@ -34,7 +34,7 @@ public class MovieService {
     }
 
     public List<MovieDto> nowPlaying(){
-        LOGGER.info("Getting now play movies");
+//        LOGGER.info("Getting now play movies");
 
         TmdbResponse response = tmdbClient.nowPlayingMovies();
         if(response.getResults() == null){
@@ -44,7 +44,7 @@ public class MovieService {
     }
 
     public List<MovieDto> upcoming(){
-        LOGGER.info("Getting upcoming movies");
+//        LOGGER.info("Getting upcoming movies");
 
         TmdbResponse response = tmdbClient.upcomingMovies();
         if(response.getResults() == null){
@@ -64,7 +64,7 @@ public class MovieService {
     }
 
     public List<MovieDto> popular(){
-        LOGGER.info("Getting popular movies list");
+//        LOGGER.info("Getting popular movies list");
 
         TmdbResponse response = tmdbClient.popularMovies();
         if(response.getResults().isEmpty()){

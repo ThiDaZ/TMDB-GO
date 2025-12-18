@@ -35,3 +35,7 @@
 1765820177059:tmdb-app --type TOP
 1765820196565:tmdb-app --type TOP --search "Star wars"
 1765820211710:tmdb-app --search
+1765875825264:tmdb-app --type TOP
+1765875932353:tmdb-app --search "Star Wars"
+1765876022415:tmdb --type UPCOMING
+1765876036884:tmdb-app --type UPCOMING

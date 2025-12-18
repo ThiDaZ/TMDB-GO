@@ -11,7 +11,7 @@ public class TmdbProperties {
     @NotBlank(message = "TMDB API Key must be set")
     private String apiKey;
 
-    private String baseUrl = "https://api.themoviedb.org/3";
+    private String baseUrl;
 
     public String getApiKey() {
         return apiKey;
